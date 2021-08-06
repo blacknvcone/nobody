@@ -15,10 +15,9 @@
               v-model="urlText"
               v-on:keyup.enter="createLink()"
             >
-
               <template v-slot:append>
                 <v-fade-transition leave-absolute>
-                  <div class="main_input_append"   @click="createLink()">
+                  <div class="main_input_append" @click="createLink()">
                     <v-progress-circular
                       v-if="loading"
                       size="24"
@@ -35,9 +34,9 @@
           </div>
           <div>
             <span class="mini_desc"
-              >adalink adalah Tool gratis <br>untuk mempersingkat URL dan
-              mengurangi tautan<br>Gunakan Adalink untuk tautan
-              singkat dan mudah diingat.</span
+              >adalink adalah Tool gratis <br />untuk mempersingkat URL dan
+              mengurangi tautan<br />Gunakan Adalink untuk tautan singkat dan
+              mudah diingat.</span
             >
           </div>
         </div>
@@ -87,8 +86,13 @@
           Code, ekstensi browser, 50+ integrasi dan dukungan aplikasi.
         </v-card-text>
         <v-card-actions>
-          <v-btn color="#4E6FE0" rounded dark big class="registerButton"
-            @click.stop="show.register=true"
+          <v-btn
+            color="#4E6FE0"
+            rounded
+            dark
+            big
+            class="registerButton"
+            @click.stop="show.register = true"
           >
             Daftar
           </v-btn>
@@ -99,9 +103,7 @@
     <v-row>
       <v-col cols="12">
         <div class="center-me">
-        <span class="cardHeaderSup">
-          Kenapa Memilih Adalink?
-        </span>
+          <span class="cardHeaderSup"> Kenapa Memilih Adalink? </span>
         </div>
       </v-col>
       <v-col cols="12" sm="12" md="6">
@@ -181,70 +183,66 @@ import ShowRegister from '../components/register/ShowRegister.vue'
 
 export default {
   components: { ShowRegister },
-  layout: "landing",
+  layout: 'landing',
 
   data() {
     return {
-      urlText: "",
+      urlText: '',
       latestLink: [],
       loading: false,
       show: {
         login: false,
-        register: false
+        register: false,
       },
       isMobile: false,
-    };
+    }
   },
 
   mounted() {
-    let self = this;
-    setTimeout(function(){
-    if(window.innerWidth<600){
-        self.isMobile = true;
-    }
-    self.getLatest();  
-    },500)  
+    let self = this
+    setTimeout(function () {
+      if (window.innerWidth < 600) {
+        self.isMobile = true
+      }
+      self.getLatest()
+    }, 500)
   },
 
   methods: {
     createLink() {
-      this.loading = true;
-      this.$axios.post("/api/link/save", { URI: this.urlText }).then(
+      this.loading = true
+      this.$axios.post('/api/link/save', { URI: this.urlText }).then(
         (r) => {
           //this.getLatest()
-          this.loading = false;
-          this.$router.push("/link/confirm/" + r.data._id);
+          this.loading = false
+          this.$router.push('/link/confirm/' + r.data._id)
         },
         (e) => {
-          this.$tool.error(e);
-        }
-      );
+          this.$tool.error(e)
+        },
+      )
     },
 
     visit(l) {
       //Redirecting into redirect service ..
-      window.open(l.FormattedLink, '_blank');
-
+      window.open(l.FormattedLink, '_blank')
     },
 
     getLatest() {
-      let self = this;
-      self.$axios.post("/api/link/latest", {}).then((r) => {
+      let self = this
+      self.$axios.post('/api/link/latest', {}).then((r) => {
         self.latestLink = r.data.map((x) => {
           if (x.Description.length > 40)
-            x.Description = x.Description.substring(0, 40) + "...";
-          return x;
-        });
-        if(self.isMobile){
-          self.latestLink = self.latestLink.slice(0,7)
+            x.Description = x.Description.substring(0, 40) + '...'
+          return x
+        })
+        if (self.isMobile) {
+          self.latestLink = self.latestLink.slice(0, 7)
         }
-      });
-
-
-
+      })
     },
   },
-};
+}
 </script>
 <style scoped>
 .noPad {
@@ -263,16 +261,15 @@ export default {
   text-align: center;
   font-weight: bold;
   margin-top: 50px;
-
 }
-.cardHeaderSup:after{
+.cardHeaderSup:after {
   display: block;
-    content: ' ';
-    background-color:#4E6FE0 !important;
-    width: 25px;
-    height: 3px;
-    margin-top: -1px;
-    position: absolute;
+  content: ' ';
+  background-color: #4e6fe0 !important;
+  width: 25px;
+  height: 3px;
+  margin-top: -1px;
+  position: absolute;
 }
 .cardHeaderSecure {
   font-size: 27px;
@@ -292,24 +289,22 @@ export default {
   width: 30%;
   margin-bottom: 50px;
 }
-.center-me{
-    display: flex;
-    justify-content: center;
+.center-me {
+  display: flex;
+  justify-content: center;
 }
-.centerThing{
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+.centerThing {
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 @media only screen and (max-width: 600px) {
-
-  .main_input_append{
-    width:110px
+  .main_input_append {
+    width: 110px;
   }
-  #linkPendekin{
-    font-size:18px;
-    left:17%;
+  #linkPendekin {
+    font-size: 18px;
+    left: 17%;
   }
-
 }
 </style>
