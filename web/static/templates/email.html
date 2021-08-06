@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adalink</title>
+</head>
+<style>   
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+.container {
+  position: relative;
+  padding: 0,7%;
+}
+.logo {
+    background-color: #4E6FE0;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+.content {
+    padding: 20px;
+}
+.content p {
+    margin: 1px;
+}
+.button {
+  background-color: #4E6FE0;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  border-radius: 20px;
+}
+.link-button {
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-bottom: 7px;
+}
+.backup-link {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    margin-top: 7px;
+    width: fit-content;
+}
+.link-wrapper {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+</style>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://adalink.dev.kanosolution.app/public/_nuxt/static/adalink.png" alt="Adalink.com"  style="height: 50px;width: auto;">
+        </div>       
+        <div class="content">
+            <p>Hi {Name},</p>
+            <p>selamat datang di Adalink Member,</p>
+            <p>Kamu telah teregistrasi di sistem kami pada tanggal {date} dengan data berikut:</p>
+            <br>
+            <p>Email : {Email}</p>
+            
+            <div class="link-wrapper">
+                <div class="link-button">
+                    <a href="https://adalink.dev.kanosolution.app/public/?showLogin=true" class="button">Adalink</a>
+                </div>
+                <p>Jika button di atas tidak dapat di akses silahkan copy link di bawah ini:</p>
+                <div class="backup-link">
+                    <a href="https://adalink.dev.kanosolution.app/public/?showLogin=true">https://adalink.dev.kanosolution.app/public/</a>
+                </div>
+            </div>
+
+            <p>Silahkan hubungi Customer Service dengan email cs@adalink.id jika anda tidak pernah merasa mendaftar pada platform kami.</p>
+            <br>
+            <p>Terima Kasih</p>
+        </div> 
+    </div>
+</body>
+</html>
