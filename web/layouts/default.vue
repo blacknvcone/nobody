@@ -74,9 +74,9 @@
           small
           dense
           dark
-             fixed
-            bottom
-            right
+          fixed
+          bottom
+          right
           color="primary"
           title="Add New Link"
           @click.stop="showCreate = true"
@@ -100,11 +100,11 @@
 </template>
 
 <script>
-import LinkDialog from "@/components/link/LinkDialog.vue";
-import LinkEdit from "@/components/link/LinkEdit.vue";
+import LinkDialog from '@/components/link/LinkDialog.vue'
+import LinkEdit from '@/components/link/LinkEdit.vue'
 
 export default {
-  middleware: "authenticated",
+  middleware: 'authenticated',
   coomponents: {
     LinkDialog,
     LinkEdit,
@@ -112,21 +112,21 @@ export default {
   computed: {
     thereIsError: {
       get() {
-        return this.$store.state.errorText != "";
+        return this.$store.state.errorText != ''
       },
 
       set(v) {
-        this.$store.commit("setErrorText", v);
+        this.$store.commit('setErrorText', v)
       },
     },
 
     thereIsInfo: {
       get() {
-        return this.$store.state.infoText != "";
+        return this.$store.state.infoText != ''
       },
 
       set(v) {
-        this.$store.commit("setInfoText", v);
+        this.$store.commit('setInfoText', v)
       },
     },
   },
@@ -138,27 +138,26 @@ export default {
       clipped: true,
       showCreate: false,
       menus: [],
-    };
+    }
   },
 
   methods: {
     home() {
-      this.$router.push("/");
+      this.$router.push('/')
     },
 
     showDrawer() {
       if (this.drawer) {
-        this.drawerMini = !this.drawerMini;
-        return;
+        this.drawerMini = !this.drawerMini
+        return
       }
 
-      this.drawer = true;
-      this.drawerMini = false;
+      this.drawer = true
+      this.drawerMini = false
     },
   },
-};
+}
 </script>
-
 
 <style>
 .container {
