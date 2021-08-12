@@ -1,304 +1,86 @@
 <template>
-  <v-app>
-    <v-app-bar
-      fixed
-      app
-      flat
-      dark
-      dense
-      color="primary"
-      height="68"
-      :clipped-left="clipped"
-      clipped-right
-    >
-      <v-toolbar-title @click="home">
-        <v-img width="100px" :src="require('@/static/adalink.png')" />
-      </v-toolbar-title>
+  <v-app id="inspire">
+    <v-system-bar app>
+      <v-spacer></v-spacer>
 
-      <v-spacer />
+      <v-icon>mdi-square</v-icon>
 
-      <div v-if="$store.state.auth == ''">
-        <v-btn small text :to="'/profile/login'">Login</v-btn>
-        <v-btn small text :to="'/profile/register'">Sign-up </v-btn>
-      </div>
+      <v-icon>mdi-circle</v-icon>
 
-      <v-menu small v-if="$store.state.auth != ''" offset-y>
-        <template v-slot:activator="{ attrs, on }">
-          <v-btn text v-bind="attrs" v-on="on">
-            {{ $store.state.userName }}
-            <v-icon medium dark right>mdi-account-circle</v-icon>
-          </v-btn>
-        </template>
-        <v-list dark color="primary" min-width="150">
-          <v-list-item nuxt to="/profile">Profile </v-list-item>
-          <v-list-item nuxt to="/member/link">My Link</v-list-item>
-          <v-list-item nuxt to="/member/domain">My Domain</v-list-item>
-          <v-list-item nuxt to="/profile/logout">Logout</v-list-item>
-          <v-divider></v-divider>
-          <div v-if="$store.state.roles == 'administrators'">
-            <v-subheader>Administration</v-subheader>
-            <v-list-item nuxt to="/admin/user">User</v-list-item>
-            <v-list-item nuxt to="/admin/domain">Domain</v-list-item>
-            <v-list-item nuxt to="/admin/link">Link</v-list-item>
-            <v-list-item nuxt to="/admin/template">Template</v-list-item>
-          </div>
-        </v-list>
-      </v-menu>
-    </v-app-bar>
+      <v-icon>mdi-triangle</v-icon>
+    </v-system-bar>
 
-    <v-main style="background-color: #ffffff">
-      <v-snackbar v-model="thereIsError" color="error" top>
-        {{ $store.state.errorText }}
+    <v-navigation-drawer v-model="drawer" app>
+      <v-sheet color="grey lighten-4" class="pa-4">
+        <v-avatar class="mb-4" color="grey darken-1" size="64"></v-avatar>
 
-        <template v-slot:action>
-          <v-btn color="yellow" text @click="$store.commit('clearErrorText')">
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
+        <div>john@vuetifyjs.com</div>
+      </v-sheet>
 
-      <v-snackbar v-model="thereIsInfo" color="primary" timeout="2000" top>
-        {{ $store.state.infoText }}
+      <v-divider></v-divider>
 
-        <template v-slot:action>
-          <v-btn color="yellow" text @click="$store.commit('clearInfoText')">
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
+      <v-list>
+        <v-list-item v-for="[icon, text] in links" :key="icon" link>
+          <v-list-item-icon>
+            <v-icon>{{ icon }}</v-icon>
+          </v-list-item-icon>
 
-      <v-container fluid>
-        <nuxt />
-        <v-btn
-          fab
-          small
-          dense
-          dark
-          fixed
-          bottom
-          right
-          color="primary"
-          title="Add New Link"
-          @click.stop="showCreate = true"
-        >
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
+          <v-list-item-content>
+            <v-list-item-title>{{ text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <v-container class="py-8 px-6" fluid>
+        <v-row>
+          <v-col v-for="card in cards" :key="card" cols="12">
+            <v-card>
+              <v-subheader>{{ card }}</v-subheader>
+
+              <v-list two-line>
+                <template v-for="n in 6">
+                  <v-list-item :key="n">
+                    <v-list-item-avatar color="grey darken-1">
+                    </v-list-item-avatar>
+
+                    <v-list-item-content>
+                      <v-list-item-title>Message {{ n }}</v-list-item-title>
+
+                      <v-list-item-subtitle>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Nihil repellendus distinctio similique
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-divider
+                    v-if="n !== 6"
+                    :key="`divider-${n}`"
+                    inset
+                  ></v-divider>
+                </template>
+              </v-list>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
-
-    <v-footer app dark color="primary" fixed>
-      <span>
-        &copy; {{ new Date().getFullYear() }}
-        <span v-if="$store.state.auth != ''">
-          &nbsp;|&nbsp;
-          {{ $store.state.userName }}
-        </span>
-      </span>
-    </v-footer>
-    <link-dialog v-model="showCreate"></link-dialog>
   </v-app>
 </template>
 
 <script>
-import LinkDialog from '@/components/link/LinkDialog.vue'
-import LinkEdit from '@/components/link/LinkEdit.vue'
-
 export default {
-  middleware: 'authenticated',
-  coomponents: {
-    LinkDialog,
-    LinkEdit,
-  },
-  computed: {
-    thereIsError: {
-      get() {
-        return this.$store.state.errorText != ''
-      },
-
-      set(v) {
-        this.$store.commit('setErrorText', v)
-      },
-    },
-
-    thereIsInfo: {
-      get() {
-        return this.$store.state.infoText != ''
-      },
-
-      set(v) {
-        this.$store.commit('setInfoText', v)
-      },
-    },
-  },
-
-  data() {
-    return {
-      drawer: true,
-      drawerMini: true,
-      clipped: true,
-      showCreate: false,
-      menus: [],
-    }
-  },
-
-  methods: {
-    home() {
-      this.$router.push('/')
-    },
-
-    showDrawer() {
-      if (this.drawer) {
-        this.drawerMini = !this.drawerMini
-        return
-      }
-
-      this.drawer = true
-      this.drawerMini = false
-    },
-  },
+  data: () => ({
+    cards: ['Today', 'Yesterday'],
+    drawer: null,
+    links: [
+      ['mdi-inbox-arrow-down', 'Inbox'],
+      ['mdi-send', 'Send'],
+      ['mdi-delete', 'Trash'],
+      ['mdi-alert-octagon', 'Spam'],
+    ],
+  }),
 }
 </script>
-
-<style>
-.container {
-  padding: 0px !important;
-}
-body {
-  font-family: Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 12px;
-  font-weight: normal;
-}
-
-h1 {
-  font-weight: bold;
-  font-size: 1.6em;
-}
-
-h2,
-h3,
-h4 {
-  font-weight: normal;
-}
-
-a {
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.v-breadcrumbs li {
-  font-size: 9px;
-}
-
-.v-btn,
-.v-tab {
-  text-transform: none;
-  letter-spacing: 0px;
-}
-
-.v-content {
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-v-subheader {
-  font-size: 1em;
-}
-
-.v-list-item {
-  min-height: 25px;
-}
-
-.v-list-item__content {
-  padding: 5px 0;
-}
-
-.v-list-item__title {
-  font-size: 1em;
-}
-
-.v-list-item__subtitle {
-  font-size: 0.9em;
-}
-
-.v-card {
-  margin-bottom: 5px;
-}
-
-.v-card__subtitle,
-.v-card__text,
-.v-card__title {
-  padding: 10px;
-  font-size: 1em;
-}
-
-.theme--light.v-card > .v-card__text,
-.theme--light.v-card .v-card__subtitle {
-  color: rgba(0, 0, 0);
-}
-
-.v-card__title {
-  padding-bottom: 5px;
-  font-size: 1.2em;
-}
-
-.v-card__text {
-  padding-top: 5px;
-}
-
-.v-dialog > .v-card > .v-card__title {
-  font-size: 1.2em;
-  font-weight: 500;
-  padding: 8px;
-  padding-bottom: 2px;
-}
-
-.v-dialog > .v-card > .v-card__text {
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.v-text-field {
-  padding-top: 8px;
-  margin-top: 8px;
-  font-size: 12px;
-}
-
-.v-label {
-  font-size: 1em;
-}
-
-.v-input {
-  font-size: 1em;
-}
-
-.v-data-table > .v-data-table__wrapper > table > tbody > tr > td,
-.v-data-table > .v-data-table__wrapper > table > thead > tr > td,
-.v-data-table > .v-data-table__wrapper > table > tfoot > tr > td {
-  font-size: 1em;
-  height: 36px;
-}
-
-.left {
-  text-align: left;
-}
-
-.right {
-  text-align: right;
-}
-.container--fluid {
-  padding: 0px;
-}
-.baseLayout {
-  background: white;
-  min-height: 600px;
-  border-radius: 10px;
-}
-.containerDiv {
-  background: #f8f9fa;
-  height: 90vh;
-}
-.titleSection {
-  border-bottom: lightgrey solid 0.1px;
-}
-</style>
