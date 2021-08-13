@@ -1,86 +1,56 @@
 <template>
   <v-app id="inspire">
-    <v-system-bar app>
-      <v-spacer></v-spacer>
+    <v-app-bar app color="white" flat>
+      <v-avatar
+        :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
+        size="32"
+      ></v-avatar>
 
-      <v-icon>mdi-square</v-icon>
+      <v-tabs centered class="ml-n9" color="grey darken-1">
+        <v-tab v-for="link in links" :key="link">
+          {{ link }}
+        </v-tab>
+      </v-tabs>
 
-      <v-icon>mdi-circle</v-icon>
+      <v-avatar
+        class="hidden-sm-and-down"
+        color="grey darken-1 shrink"
+        size="32"
+      ></v-avatar>
+    </v-app-bar>
 
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar>
+    <v-main class="grey lighten-3">
+      <v-container fluid> <nuxt /> </v-container
+    ></v-main>
 
-    <v-navigation-drawer v-model="drawer" app>
-      <v-sheet color="grey lighten-4" class="pa-4">
-        <v-avatar class="mb-4" color="grey darken-1" size="64"></v-avatar>
+    <v-footer v-bind="localAttrs" :padless="padless">
+      <v-card flat tile width="100%" class="red lighten-1 text-center">
+        <v-card-text>
+          <v-btn v-for="icon in icons" :key="icon" class="mx-4" icon>
+            <v-icon size="24px">
+              {{ icon }}
+            </v-icon>
+          </v-btn>
+        </v-card-text>
 
-        <div>john@vuetifyjs.com</div>
-      </v-sheet>
+        <v-divider></v-divider>
 
-      <v-divider></v-divider>
-
-      <v-list>
-        <v-list-item v-for="[icon, text] in links" :key="icon" link>
-          <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-main>
-      <v-container class="py-8 px-6" fluid>
-        <v-row>
-          <v-col v-for="card in cards" :key="card" cols="12">
-            <v-card>
-              <v-subheader>{{ card }}</v-subheader>
-
-              <v-list two-line>
-                <template v-for="n in 6">
-                  <v-list-item :key="n">
-                    <v-list-item-avatar color="grey darken-1">
-                    </v-list-item-avatar>
-
-                    <v-list-item-content>
-                      <v-list-item-title>Message {{ n }}</v-list-item-title>
-
-                      <v-list-item-subtitle>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Nihil repellendus distinctio similique
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-divider
-                    v-if="n !== 6"
-                    :key="`divider-${n}`"
-                    inset
-                  ></v-divider>
-                </template>
-              </v-list>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
+        <v-card-text class="white--text">
+          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        </v-card-text>
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
 export default {
   data: () => ({
-    cards: ['Today', 'Yesterday'],
-    drawer: null,
-    links: [
-      ['mdi-inbox-arrow-down', 'Inbox'],
-      ['mdi-send', 'Send'],
-      ['mdi-delete', 'Trash'],
-      ['mdi-alert-octagon', 'Spam'],
-    ],
+    links: ['AboutMe', 'Article', "Whats'up"],
   }),
+  mounted() {
+    this.$router.push('/aboutme/')
+  },
 }
 </script>
+<style></style>
