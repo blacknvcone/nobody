@@ -10,7 +10,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: [],
+  plugins: [
+    ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+  ],
   // add your custom rules here
   rules: {
     'no-console': 'warn',
