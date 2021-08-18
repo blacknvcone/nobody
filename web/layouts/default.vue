@@ -28,7 +28,7 @@
 <script>
 export default {
   data: () => ({
-    links: ['AboutMe', 'Article', "Whats'up"],
+    links: ['AboutMe', 'Project', "Whats'up"],
   }),
   mounted() {
     this.$router.push('/aboutme/')
