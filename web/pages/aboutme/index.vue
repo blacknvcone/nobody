@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row>
       <v-col cols="12" sm="3" class="m-0">
         <v-card class="mx-auto rounded-0">
@@ -12,9 +12,8 @@
           </template>
 
           <v-img
-            height="250"
-            src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-            gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+            height="200"
+            :src="require('@/assets/human_error.png')"
           ></v-img>
 
           <v-card-title>Dani Prasetya</v-card-title>
@@ -35,7 +34,10 @@
                   <h3
                     :class="`headline text-subtitle-1 font-weight-light mb-2 blue--text`"
                   >
-                    Electronic Engineering Polytechnic Institute of Surabaya
+                    <a href="https://pens.ac.id"
+                      >Electronic Engineering Polytechnic Institute of
+                      Surabaya</a
+                    >
                     (EEPIS)
                   </h3>
 
@@ -48,7 +50,9 @@
                   <h3
                     :class="`headline text-subtitle-1 font-weight-light mb-2 blue--text`"
                   >
-                    Politeknik Negeri Jember
+                    <a href="https://www.polije.ac.id"
+                      >Politeknik Negeri Jember</a
+                    >
                   </h3>
 
                   <div>D3 - Associate Degree of computer science</div>
@@ -60,12 +64,26 @@
 
           <v-divider class="mx-4"></v-divider>
 
-          <v-card-title>Social Media</v-card-title>
-          <v-card-actions>
+          <v-card-title>Contact Me Via</v-card-title>
+
+          <v-card-actions class="ml-1">
             <v-item-group>
-              <v-icon large color="green darken-2"> mdi-linkedin </v-icon>
-              <v-icon large color="blue darken-2"> mdi-github </v-icon>
-              <v-icon large color="purple darken-2"> mdi-instagram </v-icon>
+              <v-icon large color="red darken-2" @click="redirect('mail')">
+                mdi-email
+              </v-icon>
+              <v-icon
+                large
+                color="green darken-2"
+                @click="redirect('linkedin')"
+              >
+                mdi-linkedin
+              </v-icon>
+              <v-icon large color="blue darken-2" @click="redirect('github')">
+                mdi-github
+              </v-icon>
+              <v-icon large color="cyan darken-2" @click="redirect('twitter')">
+                mdi-twitter
+              </v-icon>
             </v-item-group>
           </v-card-actions>
         </v-card>
@@ -100,31 +118,6 @@
               ></v-img>
             </v-slide-item>
           </v-slide-group>
-          <!--
-          <v-row class="mx-4 mb-3">
-            <v-col cols="6" sm="4">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-                gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-              ></v-img>
-            </v-col>
-
-            <v-col cols="6" sm="4">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-              >
-                <div class="fill-height bottom-gradient"></div>
-              </v-img>
-            </v-col>
-
-            <v-col cols="6" sm="4">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-              >
-                <div class="fill-height repeating-gradient"></div>
-              </v-img>
-            </v-col>
-          </v-row>-->
 
           <v-card-title class="text-h5"> Experience </v-card-title>
           <v-divider class="mx-4"></v-divider>
@@ -150,7 +143,7 @@
                 <div class="text-subtitle-1">
                   {{ exp.jobTitle }}
                 </div>
-                <div>
+                <div class="text-md-body-1">
                   {{ exp.jobDescription }}
                 </div>
               </div>
@@ -166,6 +159,27 @@ export default {
   name: 'AboutMe',
   components: {},
   layout: 'default',
+  methods: {
+    redirect(contactKind) {
+      switch (contactKind) {
+        case 'mail':
+          location.href = 'mailto:dani.prasetya.dev@gmai.com&body=Hello!'
+          window.setTimeout(function () {
+            location.href = 'newPage.html'
+          }, 0)
+          break
+        case 'linkedin':
+          location.href = 'https://www.linkedin.com/in/dani-prasetya-4a6389168/'
+
+          break
+        case 'github':
+          location.href = 'https://github.com/blacknvcone'
+          break
+        default:
+          location.href = 'https://twitter.com/blacknvc'
+      }
+    },
+  },
   data: () => ({
     techInterest: [
       {
@@ -178,7 +192,13 @@ export default {
         imgsrc: require('@/assets/mysql.png'),
       },
       {
+        imgsrc: require('@/assets/mongo.png'),
+      },
+      {
         imgsrc: require('@/assets/laravel.png'),
+      },
+      {
+        imgsrc: require('@/assets/vue.png'),
       },
       {
         imgsrc: require('@/assets/kubernetes.png'),

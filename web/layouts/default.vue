@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-app-bar app color="white" flat>
       <v-avatar
         :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
@@ -7,8 +7,8 @@
       ></v-avatar>
 
       <v-tabs centered class="ml-n9" color="grey darken-1">
-        <v-tab v-for="link in links" :key="link">
-          {{ link }}
+        <v-tab v-for="(link, i) in links" :key="i" @click="navpage(link.route)">
+          {{ link.title }}
         </v-tab>
       </v-tabs>
 
@@ -27,11 +27,34 @@
 
 <script>
 export default {
+  methods: {
+    navpage(route) {
+      this.$router.push(route)
+    },
+  },
+  computed: {
+    currentRouteName() {
+      return this.$router.name
+    },
+  },
   data: () => ({
-    links: ['AboutMe', 'Project', "Whats'up"],
+    links: [
+      {
+        title: 'AboutMe',
+        route: '/aboutme/',
+      },
+      {
+        title: 'My Projects',
+        route: '/projects/',
+      },
+    ],
   }),
+
   mounted() {
-    this.$router.push('/aboutme/')
+    console.log(this.$router.name)
+    if (this.$router.name == undefined) {
+      this.$router.push('/aboutme/')
+    }
   },
 }
 </script>
