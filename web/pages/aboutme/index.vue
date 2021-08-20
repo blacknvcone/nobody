@@ -16,19 +16,36 @@
             :src="require('@/assets/human_error.png')"
           ></v-img>
 
-          <v-card-title>Dani Prasetya</v-card-title>
-          <v-card-text>
-            <div class="text-subtitle-1">
-              Software Engineer / Back-end Developer
-            </div>
+          <div class="mb-n3">
+            <v-list-item two-line>
+              <v-list-item-avatar>
+                <img src="@/assets/me_gunung.jpg" />
+              </v-list-item-avatar>
 
-            <div>God damn person with kidness.</div>
+              <v-list-item-content>
+                <v-list-item-title><h3>Dani Prasetya</h3></v-list-item-title>
+                <v-list-item-subtitle>
+                  <b>Software Engineer / Back-end Dev.</b></v-list-item-subtitle
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </div>
+          <v-card-text>
+            <div>
+              <p>
+                - 👋 Hi, I’m 27yo right now <br />
+                - 👀 I’m interested in software engineering and devops role
+                <br />
+                - 🏢 I'm currently work at Kano Solution <br />
+                - 📝 You have an offer for me ? call me ..<br />
+              </p>
+            </div>
           </v-card-text>
           <v-divider class="mx-4"></v-divider>
 
           <v-card-title>Education</v-card-title>
           <v-card-actions>
-            <v-timeline dense class="mx-1">
+            <v-timeline dense>
               <v-timeline-item small fill-dot>
                 <div>
                   <h3
@@ -106,8 +123,13 @@
           <v-card-title class="text-h5"> Tech Knowledge </v-card-title>
           <v-divider class="mb-4 mx-4"></v-divider>
 
-          <v-slide-group class="pa-4" active-class="success" show-arrows>
-            <v-slide-item v-for="(x, i) in techInterest" :key="i" class="ma-4">
+          <v-slide-group
+            class="pa-4"
+            active-class="success"
+            center-active
+            show-arrows
+          >
+            <v-slide-item v-for="(x, i) in techInterest" :key="i" class="ma-2">
               <v-img
                 :src="x.imgsrc"
                 align="center"
@@ -121,27 +143,26 @@
 
           <v-card-title class="text-h5"> Experience </v-card-title>
           <v-divider class="mx-4"></v-divider>
-          <v-timeline class="mx-4">
+          <v-timeline class="mx-4" dense>
             <v-timeline-item
               v-for="(exp, i) in experience"
               :key="i"
               :color="exp.color"
-              small
+              fill-dot
+              large
             >
-              <template v-slot:opposite>
-                <span
-                  :class="`headline font-weight-bold ${exp.color}--text`"
-                  v-text="exp.year"
-                ></span>
+              <template v-slot:icon>
+                <span class="white--text">{{ exp.year }}</span>
               </template>
+
               <div class="py-4">
                 <h2
-                  :class="`headline font-weight-light mb-4 ${exp.color}--text`"
+                  :class="`headline font-weight-light mb-2 ${exp.color}--text`"
                 >
                   {{ exp.company }}
                 </h2>
                 <div class="text-subtitle-1">
-                  {{ exp.jobTitle }}
+                  <b>{{ exp.jobTitle }}</b>
                 </div>
                 <div class="text-md-body-1">
                   {{ exp.jobDescription }}
@@ -211,7 +232,7 @@ export default {
     experience: [
       {
         color: 'green',
-        year: '2020 - Now',
+        year: '2020',
         company: 'Kano Solution',
         jobTitle: 'Software Engineer (Back-end Developer)',
         jobDescription:
