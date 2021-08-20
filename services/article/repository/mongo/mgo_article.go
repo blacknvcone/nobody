@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/blacknvcone/opdrewski/domain"
+	"github.com/blacknvcone/nobody/domain"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )

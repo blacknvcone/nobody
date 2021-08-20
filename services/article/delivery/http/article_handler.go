@@ -3,8 +3,8 @@ package http
 import (
 	"net/http"
 
-	"github.com/blacknvcone/opdrewski/common/logger"
-	"github.com/blacknvcone/opdrewski/domain"
+	"github.com/blacknvcone/nobody/common/logger"
+	"github.com/blacknvcone/nobody/domain"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 )

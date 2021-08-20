@@ -7,8 +7,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/blacknvcone/opdrewski/domain"
-	helper "github.com/blacknvcone/opdrewski/iam/repository"
+	"github.com/blacknvcone/nobody/domain"
+	"github.com/blacknvcone/nobody/helper"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"

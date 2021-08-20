@@ -6,16 +6,16 @@ import (
 	"os"
 	"time"
 
-	_articleDelivery "github.com/blacknvcone/opdrewski/article/delivery/http"
-	_articleRepo "github.com/blacknvcone/opdrewski/article/repository/mongo"
-	_articleUseCase "github.com/blacknvcone/opdrewski/article/usecase"
+	_articleDelivery "github.com/blacknvcone/nobody/services/article/delivery/http"
+	_articleRepo "github.com/blacknvcone/nobody/services/article/repository/mongo"
+	_articleUseCase "github.com/blacknvcone/nobody/services/article/usecase"
 
-	_iamDelivery "github.com/blacknvcone/opdrewski/iam/delivery/http"
-	_iamRepo "github.com/blacknvcone/opdrewski/iam/repository/mongo"
-	_iamUseCase "github.com/blacknvcone/opdrewski/iam/usecase"
+	_iamDelivery "github.com/blacknvcone/nobody/services/iam/delivery/http"
+	_iamRepo "github.com/blacknvcone/nobody/services/iam/repository/mongo"
+	_iamUseCase "github.com/blacknvcone/nobody/services/iam/usecase"
 
-	"github.com/blacknvcone/opdrewski/common/config"
-	_logger "github.com/blacknvcone/opdrewski/common/logger"
+	"github.com/blacknvcone/nobody/common/config"
+	_logger "github.com/blacknvcone/nobody/common/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 
